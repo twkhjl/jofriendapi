@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <title>test api</title>
+</head>
+<body>
+
+    <div class="container">
+        <h3 class="display-4 text-center mb-5 mt-5">^_^</h3>
+            <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>代號</th>
+                        <th>email</th>
+                        <th>姓名</th>
+                        <th>電話</th>
+                        <th>地址</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tableContent">
+                     
+                    </tbody>
+                  </table>
+    </div>       
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+<script>
+    $.ajax({
+        url:"http://jofriendapi.duckdns.org/api/tests",
+        success:function(result,status,xhr){
+            var $tableContent = $("#tableContent");
+            var obj = result.data;
+            $.each(obj,function(index,value){
+                var $tr = $("<tr></tr>");
+                var $id = $("<td>"+obj[index].id+"</td>");
+                var $email = $("<td>"+obj[index].email+"</td>");
+                var $name = $("<td>"+obj[index].name+"</td>");
+                var $phone = $("<td>"+obj[index].phone+"</td>");
+                var $address = $("<td>"+obj[index].address+"</td>");
+                
+                
+                $tr.append($id);
+                $tr.append($email);
+                $tr.append($name);
+                $tr.append($phone);
+                $tr.append($address);
+                $tableContent.append($tr);
+            });
+            
+        },
+        error:function(xhr){
+            console.log(xhr);
+            console.log(xhr.status);
+            console.log(xhr.statusText);
+            console.log(xhr.responseText);
+        }
+    })
+</script>
+</body>
+</html>
